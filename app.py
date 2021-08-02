@@ -5,6 +5,7 @@ from flaskext.mysql import MySQL
 app = Flask(__name__)
 
 #MODIFICACION
+# Mas ComodificacionesM
 mysql = MySQL()
 app.config['MYSQL_DATABASE_HOST']='localhost'
 app.config['MYSQL_DATABASE_USER']='root'
