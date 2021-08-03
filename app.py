@@ -29,32 +29,32 @@ def index():
 # EJEMPLO AUTOMATIZADO
 @app.route('/create')
 def create():
-   return render_template('empleados/create.html')
+    return render_template('empleados/create.html')
 
 @app.route('/store', methods=['POST'])
 def storage():
-   _nombre = request.form['txtNombre']
-   _correo = request.form['txtCorreo']
-   _foto   = request.files['txtFoto']
+    _nombre = request.form['txtNombre']
+    _correo = request.form['txtCorreo']
+    _foto   = request.files['txtFoto']
 
-   now    = datetime.now()
-   tiempo = now.strftime("%Y%H%M%S") # now.stringformattime("%YEAR%HOUR%MINUTE%SECOND")
+    now    = datetime.now()
+    tiempo = now.strftime("%Y%H%M%S") # now.stringformattime("%YEAR%HOUR%MINUTE%SECOND")
 
-   if _foto.filename !='':
-       nuevoNombreFoto = tiempo + _foto.filename
-       _foto.save("uploads/"+nuevoNombreFoto)
+    if _foto.filename !='':
+        nuevoNombreFoto = tiempo + _foto.filename
+        _foto.save("uploads/"+nuevoNombreFoto)
 
-   sql   = "INSERT INTO `empleados` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL, %s, %s, %s); "
-   datos = (_nombre, _correo, nuevoNombreFoto)
+    sql   = "INSERT INTO `empleados` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL, %s, %s, %s); "
+    datos = (_nombre, _correo, nuevoNombreFoto)
 
-   conn = mysql.connect()
-   cursor = conn.cursor()
-   cursor.execute(sql, datos)
-   conn.commit()
-   # mysql.connect().cursor().execute(sql, datos)
-   # mysql.connect().commit()
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute(sql, datos)
+    conn.commit()
+    # mysql.connect().cursor().execute(sql, datos)
+    # mysql.connect().commit()
 
-   return render_template('empleados/index.html')
+    return render_template('empleados/index.html')
 
 if __name__=='__main__':
     app.run(debug=True)
