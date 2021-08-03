@@ -16,6 +16,17 @@ mysql.init_app(app)
 CARPETA = os.path.join('uploads')
 app.config['CARPETA'] = CARPETA
 
+# EJEMPLO HARDCODEADO
+# @app.route('/')
+# def index():
+#     sql = "INSERT INTO `empleados` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL, 'messi', 'messi@ciudad.com.ar', 'messi.jpg'); "
+#     conn = mysql.connect()
+#     cursor = conn.cursor()
+#     cursor.execute(sql)
+#     conn.commit()
+#     return render_template('empleados/index.html')
+
+# INDEX
 @app.route('/')
 def index():
     sql    = "SELECT * FROM `empleados`;"
@@ -56,7 +67,6 @@ def edit(id):
 
     return render_template('empleados/edit.html', empleados=empleados)
 
-# UPDATE
 @app.route('/update', methods=['POST'])
 def update():
     _nombre = request.form['txtNombre']
@@ -88,16 +98,6 @@ def update():
     conn.commit()
 
     return redirect('/')
-
-# EJEMPLO HARDCODEADO
-# @app.route('/')
-# def index():
-#     sql = "INSERT INTO `empleados` (`id`, `nombre`, `correo`, `foto`) VALUES (NULL, 'messi', 'messi@ciudad.com.ar', 'messi.jpg'); "
-#     conn = mysql.connect()
-#     cursor = conn.cursor()
-#     cursor.execute(sql)
-#     conn.commit()
-#     return render_template('empleados/index.html')
 
 # CREATE
 @app.route('/create')
